@@ -1,13 +1,20 @@
 import './Style.css'
+import moment from 'moment'
 
+console.log(moment().format('DD MMM'))
+
+let dd = moment().format('DD MMMM YYYY')
+console.log(`this is ${dd}`)
 function App() {
   return (
     <div className='container'>
       <div className='input-container'>        
         <p className="input-header">
-          <span class="material-symbols-outlined">event</span>
+          <span className="material-symbols-outlined">event</span>
           入住日期 - 退房日期
         </p>
+        <p>time: {dd}</p>
+        
         <input placeholder='2023/06/19 - 2023/06/20'/>
       </div>
       <div className="date-container">
