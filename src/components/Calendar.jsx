@@ -1,15 +1,10 @@
 import moment from 'moment'
 import { useState } from 'react';
 
-
-
-
 export default function Calendar () {
   const [currentMonth, setCurrentMonth] = useState(moment().format('MMM YYYY'))
   const [currentDate,setCurrentDate] = useState(moment().format('YYYY/MM/DD'))
   const currentYearAndMonth = moment().format('YYYY/MM')
-  console.log(currentYearAndMonth)
-  // const currentDate = moment().format('YYYY/MM/DD')
   const daysInMonth = moment(currentMonth).daysInMonth()
 
   // 取得當前月份的第一天是星期幾
@@ -18,21 +13,25 @@ export default function Calendar () {
   // 用於填充第一天之前的空格
   const blanks = []
   for (let i = 0; i < firstDayOfMonth; i++) {
-    blanks.push(<li><span></span></li>)
+    blanks.push(<li key={i}><span></span></li>)
   }
 
   const days = []
   for (let day = 1; day <= daysInMonth; day++) {
-    days.push(<li><span id={day}>{day}</span></li>)
+    days.push(<li key={day}><span id={day}>{day}</span></li>)
   }
 
   function gotoNextMonth() {
     const nextMonth = moment(currentMonth).add(1, 'month').format('MMM YYYY')
+    const momentobj = moment.parseZone(nextMonth, 'MMM YYYY')
     setCurrentMonth(nextMonth)
   }
 
   function gotoPrevtMonth() {
     const prevtMonth = moment(currentMonth).subtract(1, 'month').format('MMM YYYY')
+    const moefwef = moment.parseZone(prevtMonth, 'MMM YYYY')
+    console.log('prev',prevtMonth)
+    console.log('new',moefwef)
     setCurrentMonth(prevtMonth)
   }  
 
@@ -43,8 +42,7 @@ export default function Calendar () {
     setCurrentDate(selectedDate)
   }
 
-  return (
-    
+  return (    
     <div className='container'>
       <div className='input-container'>        
         <p className="input-header">
@@ -69,7 +67,7 @@ export default function Calendar () {
             <li><span>Fri</span></li>
             <li><span>Sat</span></li>
           </ul>
-          <ul className="date-list"  onClick={handleDateSelect}>
+          <ul className="date-list" onClick={handleDateSelect}>
             {blanks}{days}
           </ul>
         </div>        
